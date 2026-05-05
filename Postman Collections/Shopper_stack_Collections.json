@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "d4e3a9ce-9117-4034-9248-c0beb6715fed",
+		"name": "Merchant Profile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save the merchant data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72e69d89-34c1-4a2e-b5f0-0b07e3f6970c",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message is : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"merchant_id\", pm.response.json().data.userId);\r",
+							"pm.environment.set(\"merchant_email\", pm.response.json().data.email);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "74c599f2-192d-4367-a4f2-13e68978014e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Alpha\",\r\n    \"lastName\": \"Kumar\",\r\n    \"email\": \"{{merchant_email}}\",\r\n    \"phone\": \"9986988420\",\r\n    \"password\": \"abc@123\",\r\n    \"role\": \"MERCHANT\",\r\n    \"gender\": \"MALE\",\r\n    \"createdDateTime\": null,\r\n    \"zoneId\": \"THRISSUR372303\",\r\n    \"city\": \"Bangalore\",\r\n    \"state\": \"Karnataka\",\r\n    \"country\": \"India\",\r\n    \"commission\": 25,\r\n    \"productLimit\": 10,\r\n    \"company\": {\r\n        \"companyId\": 1,\r\n        \"name\": \"TYSS\",\r\n        \"gstn\": \"29ALTIT4044C1Z5\",\r\n        \"address\": {\r\n            \"addressId\": 1,\r\n            \"name\": \"TYSS\",\r\n            \"type\": \"Office\",\r\n            \"buildingInfo\": \"DeltaBuilding\",\r\n            \"streetInfo\": \"RamakrishnaAshrama\",\r\n            \"landmark\": \"Opp.Hyundai.showroom\",\r\n            \"city\": \"Bangalore\",\r\n            \"state\": \"Karnataka\",\r\n            \"country\": \"India\",\r\n            \"pincode\": \"560004\",\r\n            \"phone\": \"08041204235\"\r\n        },\r\n        \"registerNumber\": \"U72200KA2007PWC045001\",\r\n        \"phone\": \"{{phone}}\",\r\n        \"webAddress\": \"www.testyantra.com\",\r\n        \"email\": \"contact@testyantra.com\"\r\n    },\r\n    \"productAdded\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/merchants"
+			},
+			"response": []
+		},
+		{
+			"name": "Returns single merchant based on id",
+			"id": "1db30eb1-12cd-435b-b3f2-18f46e5c8051",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/merchants/{{merchant_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Saves the Updated merchant Data",
+			"id": "60107a4d-5658-4240-b33c-43775ca97523",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Alpha\",\r\n    \"lastName\": \"Kumar\",\r\n    \"email\": \"{{merchant_email}}\",\r\n    \"phone\": \"{{merchant_phone}}\",\r\n    \"password\": \"abc@123\",\r\n    \"role\": \"MERCHANT\",\r\n    \"gender\": \"MALE\",\r\n    \"createdDateTime\": null,\r\n    \"zoneId\": \"ALPHA\",\r\n    \"city\": \"Bangalore\",\r\n    \"state\": \"Karnataka\",\r\n    \"country\": \"India\",\r\n    \"commission\": 25,\r\n    \"productLimit\": 9,\r\n    \"company\": {\r\n        \"companyId\": 1,\r\n        \"name\": \"TYSS\",\r\n        \"gstn\": \"29ALTIT4044C1Z5\",\r\n        \"address\": {\r\n            \"addressId\": 1,\r\n            \"name\": \"TYSS\",\r\n            \"type\": \"Office\",\r\n            \"buildingInfo\": \"DeltaBuilding\",\r\n            \"streetInfo\": \"RamakrishnaAshrama\",\r\n            \"landmark\": \"Opp.Hyundai.showroom\",\r\n            \"city\": \"Bangalore\",\r\n            \"state\": \"Karnataka\",\r\n            \"country\": \"India\",\r\n            \"pincode\": \"560004\",\r\n            \"phone\": \"08041204235\"\r\n        },\r\n        \"registerNumber\": \"U72200KA2007PWC045001\",\r\n        \"phone\": \"{{phone}}\",\r\n        \"webAddress\": \"www.testyantra.com\",\r\n        \"email\": \"contact@testyantra.com\"\r\n    },\r\n    \"productAdded\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/merchants/{{merchant_id}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {
+			"username": "vanig.jira@gmail.com"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0778c849-d953-429d-a7b0-865dcc29bda4",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ae0ac214-fc71-481c-8e4d-8dc95d431f41",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
