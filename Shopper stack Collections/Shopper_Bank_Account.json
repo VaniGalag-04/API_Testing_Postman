@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "7cec299c-6068-422b-ae62-e8e62c1061d8",
+		"name": "Shopper Bank Account",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create bank account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb86e369-918a-4dd3-a31f-d64664c84eb8",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message is : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pn.response.json();\r",
+							"pm.environment.set(\"bank_Id\", jsonData.data.bankAccountId);\r",
+							"pm.environment.set(\"bank_AccNum\", jsonData.data.bankAccountNumber);\r",
+							"pm.environment.set(\"bank_passwd\", pm.response.json().data.password);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "888a7b6d-a962-4fff-bc9b-1f4c207f736b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "fcf2515d-3740-4f53-9546-b7961195a981",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/bankaccounts?bankName={{bankName}}&email={{alternate_email}}&shopperId={{alternate_user_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bankaccounts"
+					],
+					"query": [
+						{
+							"key": "bankName",
+							"value": "{{bankName}}"
+						},
+						{
+							"key": "email",
+							"value": "{{alternate_email}}"
+						},
+						{
+							"key": "shopperId",
+							"value": "{{alternate_user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bank account of shopper",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aedb8137-be07-4594-99e8-1d80a1b41242",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "365aafcd-8fa4-44f1-9e17-ffcc91b8bb86",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/bankaccounts?shopperId={{alternate_user_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bankaccounts"
+					],
+					"query": [
+						{
+							"key": "shopperId",
+							"value": "{{alternate_user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update bank account balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fc3dfed-0903-410d-8cbf-49854d8c337f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "e77027d8-e5e4-4e34-bcef-0d4937901e64",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/bankaccounts?action=\"\"&amount=20000&number={{bank_AccNum}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bankaccounts"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "\"\""
+						},
+						{
+							"key": "amount",
+							"value": "20000"
+						},
+						{
+							"key": "number",
+							"value": "{{bank_AccNum}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validates bank account credential",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22bd290e-9494-49a2-aa2d-f2f70ce44337",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "75848559-0217-4e3f-8955-0663e074a353",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"{{alternate_email}}\",\r\n  \"password\": \"{{bank_passwd}}\",\r\n  \"role\": \"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/bankaccounts/login?bankName={{bankName}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bankaccounts",
+						"login"
+					],
+					"query": [
+						{
+							"key": "bankName",
+							"value": "{{bankName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f839f12f-871a-401d-a77d-f44f05d20769",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d2fbe66d-040e-4dc3-8676-e694d64efa27",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bank account number",
+			"value": ""
+		},
+		{
+			"key": "bank email",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "bank password",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "random_email_bank",
+			"value": ""
+		}
+	]
+}
