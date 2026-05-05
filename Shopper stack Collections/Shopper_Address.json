@@ -1,0 +1,445 @@
+{
+	"info": {
+		"_postman_id": "5c59ccfd-f8e4-4f42-94ca-7514d4806f20",
+		"name": "Shopper Address",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Negative Testcase",
+			"item": [
+				{
+					"name": "Get all the addresses with blank Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7456cc5c-1684-4cd6-a747-384691cde636",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status Message is : Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "3f8864f1-6dc9-417d-a971-e84384d5cd50",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseurl}}/shoppers/{{blankId}}/address"
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new address invalid userId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c196ad69-5e13-473b-b582-305cde60f21f",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Status Message is : Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message : User id 1234567, does not exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(\"User id 1234567, does not exist\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "f5c2c2e0-1c25-4304-9fc0-1c468c42067d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"addressId\": 1,\r\n  \"buildingInfo\": \"building1\",\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"landmark\": \"landmark1\",\r\n  \"name\": \"{{firstname}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"pincode\": \"{{pincode}}\",\r\n  \"state\": \"{{state}}\",\r\n  \"streetInfo\": \"streetInfo1\",\r\n  \"type\": \"Home\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/shoppers/1234567/address"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a particular address InvalidId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "19c00355-b3bc-49c4-afc6-08adb61329f0",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Status Message is : Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});\r",
+									"pm.test(\"Error Message is : Address id 123, does not exist\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(\"Address id 123, does not exist\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "a3b464bb-1e2a-4058-9c8f-97ecc6b0b90c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address/123"
+					},
+					"response": []
+				},
+				{
+					"name": "Update address Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ebf1827-162b-4ac6-8e66-29e4b6bcd2c1",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Status Message is : Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "7392dd6e-8aa8-4cd4-8c69-93edafb17c3a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address/34"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an address Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a969f57a-f361-4a62-a5fb-0bce9a3c5106",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Status Message is : No Content\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "1c670854-5049-41c1-ab11-c999ab86c927",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address/123"
+					},
+					"response": []
+				}
+			],
+			"id": "9f397d71-7bce-4f1c-8dad-022d7840bf04"
+		},
+		{
+			"name": "Get all the addresses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7456cc5c-1684-4cd6-a747-384691cde636",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "2b00f8c4-ff64-4583-94ad-dfe9f103e7c9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address"
+			},
+			"response": []
+		},
+		{
+			"name": "Add a new address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c196ad69-5e13-473b-b582-305cde60f21f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message is : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"addressId\", jsonData.data.addressId);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "a8a7afcb-5e1a-44a8-8371-d6c789a3d3f9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"addressId\": 1,\r\n  \"buildingInfo\": \"building1\",\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"landmark\": \"landmark1\",\r\n  \"name\": \"{{firstname}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"pincode\": \"{{pincode}}\",\r\n  \"state\": \"{{state}}\",\r\n  \"streetInfo\": \"streetInfo1\",\r\n  \"type\": \"Home\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a particular address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19c00355-b3bc-49c4-afc6-08adb61329f0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "ac19c4f7-40de-42f3-b408-afb4fec6f7fb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address/{{addressId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9ebf1827-162b-4ac6-8e66-29e4b6bcd2c1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "2a1c648d-a3eb-4031-836c-5223b5985504",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"addressId\": {{addressId}},\r\n  \"buildingInfo\": \"Apartment\",\r\n  \"city\": \"{{city_Davanagere}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"landmark\": \"near pool\",\r\n  \"name\": \"{{firstname}}\",\r\n  \"phone\": \"{{phone}}\",\r\n  \"pincode\": \"{{pincode}}\",\r\n  \"state\": \"{{state}}\",\r\n  \"streetInfo\": \"XYZ street\",\r\n  \"type\": \"Office\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address/{{addressId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a969f57a-f361-4a62-a5fb-0bce9a3c5106",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"pm.test(\"Status Message is : No Content\", function () {\r",
+							"    pm.response.to.have.status(\"No Content\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "413af192-f3b1-42c4-a015-81a594e573b1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/address/{{addressId}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "954b3b25-ceec-477f-a48e-1b06de61793f",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bc89e51c-d536-4846-b801-aac4ea6f233a",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
