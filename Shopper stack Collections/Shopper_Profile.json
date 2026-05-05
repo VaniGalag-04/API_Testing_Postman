@@ -1,0 +1,993 @@
+{
+	"info": {
+		"_postman_id": "45c69fd8-fc5c-4553-a4bc-2abd51f5b2f5",
+		"name": "Shopper Profile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NegativeTestcase_Register",
+			"item": [
+				{
+					"name": "Register as shopper_blankemail",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1f09b1c5-8fc5-4432-ade0-4b744d4a4c77",
+								"exec": [
+									"let num = Math.floor(Math.random()*20)+1\r",
+									"pm.collectionVariables.set(\"random_email\", \"shopper_\"+num+\"@gmail.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6844a644-87ea-45b2-b2ec-b8e8e01d5d12",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status Message : Created\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 900ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+									"});\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.test(\"Error Message is : \" + jsonData.data.email, function () {\r",
+									"       pm.expect(jsonData.data.email).to.eql(\"Should not have space in email\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "2d43c18b-72d7-4ddf-a1a0-a73209124c71",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"email\": \"\",\r\n  \"firstName\": \"{{firstname}}\",\r\n  \"gender\": \"{{gender_m}}\",\r\n  \"lastName\": \"{{lastname}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": {{phone}},\r\n  \"state\": \"{{state}}\",\r\n  \"zoneId\": \"{{zoneId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/shoppers?zoneId={{zoneId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"shoppers"
+							],
+							"query": [
+								{
+									"key": "zoneId",
+									"value": "{{zoneId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register as shopper_existing_email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1f09b1c5-8fc5-4432-ade0-4b744d4a4c77",
+								"exec": [
+									"let num = Math.floor(Math.random()*20)+1\r",
+									"pm.collectionVariables.set(\"random_email\", \"shopper_\"+num+\"@gmail.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6844a644-87ea-45b2-b2ec-b8e8e01d5d12",
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"pm.test(\"Status Message : Created\", function () {\r",
+									"    pm.response.to.have.status(\"Conflict\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Error Message is : \" + jsonData.data, function () {\r",
+									"       pm.expect(jsonData.data).to.eql(\"Given Email ID or Phone number already used\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "27dff680-c73c-4eff-8cbf-340925ea13ec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"email\": \"vani_shopper@gmail.com\",\r\n  \"firstName\": \"{{firstname}}\",\r\n  \"gender\": \"{{gender_m}}\",\r\n  \"lastName\": \"{{lastname}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": {{phone}},\r\n  \"state\": \"{{state}}\",\r\n  \"zoneId\": \"{{zoneId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/shoppers?zoneId={{zoneId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"shoppers"
+							],
+							"query": [
+								{
+									"key": "zoneId",
+									"value": "{{zoneId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register as shopper_InvalidPhone",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1f09b1c5-8fc5-4432-ade0-4b744d4a4c77",
+								"exec": [
+									"let num = Math.floor(Math.random()*20)+1\r",
+									"pm.collectionVariables.set(\"random_email\", \"shopper_\"+num+\"@gmail.com\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6844a644-87ea-45b2-b2ec-b8e8e01d5d12",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status Message : Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Error Message is : \" + jsonData.data.phone, function () {\r",
+									"       pm.expect(jsonData.data.phone).to.eql(\"The number is Not Valid\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "4094bf61-9622-4da4-9e15-f13e35e7b1fd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"email\": \"{{random_email}}\",\r\n  \"firstName\": \"{{firstname}}\",\r\n  \"gender\": \"{{gender_m}}\",\r\n  \"lastName\": \"{{lastname}}\",\r\n  \"password\": \"         \",\r\n  \"phone\": 0,\r\n  \"state\": \"{{state}}\",\r\n  \"zoneId\": \"{{zoneId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/shoppers?zoneId={{zoneId}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"shoppers"
+							],
+							"query": [
+								{
+									"key": "zoneId",
+									"value": "{{zoneId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "653a8de4-f7ad-4a54-9980-0eb39100a179"
+		},
+		{
+			"name": "Negative Fetch Shopper details",
+			"item": [
+				{
+					"name": "Fetch shopper details with invalid user Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dbd2d3bf-b813-4861-bd92-476392730b51",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Status message : Given ID not found\", function () {\r",
+									"    pm.response.to.have.status(\"Given ID not found\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 900ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "5a42a4ea-1d14-4d54-8d98-69fd8dde14cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "https://www.shoppersstack.com/shoppers/12334567"
+					},
+					"response": []
+				}
+			],
+			"id": "6d68b818-1d08-413e-af81-1110e31546b2"
+		},
+		{
+			"name": "Negative Shopper Login",
+			"item": [
+				{
+					"name": "Shopper Login not registered email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33c942ff-f96d-44b4-aa7f-f9aad6ca80de",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"pm.test(\"Status message : Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"    var jsonData = pm.response.json();\r",
+									"pm.test(\"Error Message is : \"+ jsonData.data, function () {\r",
+									"    pm.expect(jsonData.data).to.eql(\"Given user ID or password is wrong\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "d373358e-161f-4340-bc1c-48d38947b5cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"shopttper_8@gmail.com\",\r\n  \"password\":\"{{password}}\",\r\n  \"role\": \"{{role}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://www.shoppersstack.com/shopping/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Shopper Login invalid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33c942ff-f96d-44b4-aa7f-f9aad6ca80de",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status message : Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.test(\"Error Message is : \" + jsonData.data, function () {\r",
+									"    pm.expect(jsonData.data).to.eql(\"Given user ID or password is wrong\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "f9bfd0fc-c3b3-40b2-b474-419518760a1c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"password\":\"fds\",\r\n  \"role\": \"{{role}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://www.shoppersstack.com/shopping/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Shopper Login invalid role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33c942ff-f96d-44b4-aa7f-f9aad6ca80de",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status message : Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "9f2d6960-ef1a-4097-bc46-e0cb7ff5e409",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"password\":\"{{password}}\",\r\n  \"role\": \"shopper\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://www.shoppersstack.com/shopping/users/login"
+					},
+					"response": []
+				}
+			],
+			"id": "2ac83a21-c653-4e3b-8a6f-24ba44c5ed70"
+		},
+		{
+			"name": "Negative Update shopper details",
+			"item": [
+				{
+					"name": "Update the shopper Details invalid_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f94e8d35-884c-4743-aaec-5a4393a82a15",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Status message : Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"pm.test(\"Error message is : \"+jsonData.data , function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data).to.eql(\"User id 1112226, does not exist\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "31dd56d2-29f8-4135-b269-cc543aa28070",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{vault:token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"{{city_Davanagere}}\",\r\n    \"country\": \"{{country}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"firstName\": \"{{firstname}}\",\r\n    \"gender\": \"{{gender_f}}\",\r\n    \"lastName\": \"{{lastname}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"phone\": {{phone}},\r\n    \"state\": \"{{state}}\",\r\n    \"zoneId\": \"{{zoneId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/shoppers/1112226"
+					},
+					"response": []
+				},
+				{
+					"name": "Update the shopper Details with invalid phone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f94e8d35-884c-4743-aaec-5a4393a82a15",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status message : Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									" var jsonData = pm.response.json();\r",
+									"pm.test(\"Error message is : \"+ jsonData.data.phone, function () {\r",
+									"    pm.expect(jsonData.data.phone).to.eql(\"The number is Not Valid\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "a28b2008-36a3-4ab4-a655-7f5dc68b1806",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{vault:token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"{{city_Davanagere}}\",\r\n    \"country\": \"{{country}}\",\r\n    \"firstName\": \"shopper23\",\r\n    \"lastName\": \"shopper_lastname\",\r\n    \"phone\": \"990\",\r\n    \"state\": \"{{state}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/shoppers/325887"
+					},
+					"response": []
+				},
+				{
+					"name": "Update the shopper Details with no auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f94e8d35-884c-4743-aaec-5a4393a82a15",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"pm.test(\"Status message : Forbidden\", function () {\r",
+									"    pm.response.to.have.status(\"Forbidden\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "0779919b-88ae-46cb-9425-3f501da4d1db",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"{{city_Davanagere}}\",\r\n    \"country\": \"{{country}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"firstName\": \"{{firstname}}\",\r\n    \"gender\": \"{{gender_f}}\",\r\n    \"lastName\": \"{{lastname}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"phone\": {{phone}},\r\n    \"state\": \"{{state}}\",\r\n    \"zoneId\": \"{{zoneId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/shoppers/{{vault:userId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "8f2a83b6-fa85-4f9f-9ade-748a6ba296c4"
+		},
+		{
+			"name": "Register as shopper",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1f09b1c5-8fc5-4432-ade0-4b744d4a4c77",
+						"exec": [
+							"let num = Math.floor(Math.random()*20)+1\r",
+							"pm.collectionVariables.set(\"random_email\", \"shopper_\"+num+\"@gmail.com\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6844a644-87ea-45b2-b2ec-b8e8e01d5d12",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"//Verifying the Email\r",
+							"shopper_email = pm.collectionVariables.get(\"random_email\");\r",
+							"pm.test(\"Shopper Email is : \"+shopper_email, function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.email).to.eql(shopper_email);\r",
+							"});\r",
+							"\r",
+							"//Verifying the First name\r",
+							"shopper_firstname = pm.environment.get(\"firstname\");\r",
+							"pm.test(\"First name is : \"+shopper_firstname, function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.firstName).to.eql(shopper_firstname);\r",
+							"});\r",
+							"\r",
+							"//Verifying the City\r",
+							"shopper_city = pm.environment.get(\"city_bengaluru\");\r",
+							"pm.test(\"Shopper City is : \"+shopper_city, function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.city).to.eql(shopper_city);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"alternate_email\", jsonData.data.email);\r",
+							"pm.environment.set(\"alternate_user_id\", jsonData.data.userId);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "343925ea-510d-4997-87a5-aeebc5f7aaba",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"email\": \"{{random_email}}\",\r\n  \"firstName\": \"{{firstname}}\",\r\n  \"gender\": \"{{gender_m}}\",\r\n  \"lastName\": \"{{lastname}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"phone\": {{phone}},\r\n  \"state\": \"{{state}}\",\r\n  \"zoneId\": \"{{zoneId}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/shoppers?zoneId={{zoneId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"shoppers"
+					],
+					"query": [
+						{
+							"key": "zoneId",
+							"value": "{{zoneId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch shopper details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9065ad88-aafb-469b-9b0f-e82b701d2916",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "00a9a7d1-55cd-401e-98a5-a76d203a9bc3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 900ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "ac203164-8dc1-4e80-9184-5a9936a47999",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaG9wcGVyX3ZhQGdtYWlsLmNvbSBTSE9QUEVSIiwiZXhwIjoxNzY0Mzc2MTU1LCJpYXQiOjE3NjQzNDAxNTV9.8vka033mpj1RQQgFnaFk2INj2TdAq6tl_snCnTqLoqs"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://www.shoppersstack.com/shoppers/{{alternate_user_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update the shopper Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59e384d5-a78a-447a-ad89-920b383b5b1d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"User Id is : \"+jsonData.data.userId, function () {\r",
+							"    pm.expect(jsonData.data.userId).to.eql(pm.environment.get(\"userId\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User Email is : \" + jsonData.data.email, function () {\r",
+							"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"First name is : \"+jsonData.data.firstName, function(){\r",
+							"    pm.expect(jsonData.data.firstName).to.eql(pm.environment.get(\"firstname\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Last name is : \"+jsonData.data.lastName, function(){\r",
+							"    pm.expect(jsonData.data.lastName).to.eql(pm.environment.get(\"lastname\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"City is : \" + jsonData.data.city, function () {\r",
+							"    pm.expect(jsonData.data.city).to.eql(pm.environment.get(\"city\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Country is : \" + jsonData.data.country, function () {\r",
+							"    pm.expect(jsonData.data.country).to.eql(pm.environment.get(\"country\"))\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a49046d4-a06d-4549-b9c2-57c0edbc7527",
+						"exec": [
+							"pm.environment.set(\"firstname\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+							"\r",
+							"pm.environment.set(\"lastname\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+							"\r",
+							"pm.environment.set(\"city\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+							"\r",
+							"pm.environment.set(\"country\",pm.variables.replaceIn(\"{{$randomCountry}}\"))\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c2b75141-4141-4e50-9d1f-7a8e2db4fa58",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{vault:token}}"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"city\": \"{{city}}\",\r\n    \"country\": \"{{country}}\",\r\n    \"firstName\": \"{{firstname}}\",\r\n    \"gender\": \"{{gender_f}}\",\r\n    \"lastName\": \"{{lastname}}\",\r\n    \"phone\": {{phone}},\r\n    \"state\": \"{{state}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Shopper Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5866ae8d-f4f9-45f7-b19f-c5aa80d12ab5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"//Verify user email\r",
+							"var jsonData = pm.response.json();\r",
+							"shopper_email = pm.environment.get(\"email\");\r",
+							"pm.test(\"Email Id is  : \"+shopper_email, function () {\r",
+							"    pm.expect(jsonData.data.email).to.eql(shopper_email);\r",
+							"});\r",
+							"\r",
+							"//Verify Role\r",
+							"shopper_role = pm.environment.get(\"role\");\r",
+							"pm.test(\"Role is  : \"+shopper_role, function () {\r",
+							"    pm.expect(jsonData.data.role).to.eql(shopper_role);\r",
+							"});\r",
+							"\r",
+							"//Verify User Id is generated\r",
+							" pm.test(\"User ID is present : \"+jsonData.data.userId, function () {\r",
+							"        pm.expect(jsonData.data).to.have.property('userId'); \r",
+							"        pm.expect(jsonData.data.userId).to.not.be.null;\r",
+							"        pm.expect(jsonData.data.userId).to.not.be.undefined;\r",
+							"    });\r",
+							"\r",
+							"//Verify JWT token is generated\r",
+							" pm.test(\"JWT token is present \", function () {\r",
+							"        pm.expect(jsonData.data).to.have.property('jwtToken'); \r",
+							"        pm.expect(jsonData.data.jwtToken).to.not.be.null;\r",
+							"        pm.expect(jsonData.data.jwtToken).to.not.be.undefined;\r",
+							"    });\r",
+							"\r",
+							"// set Jwt Token\r",
+							"if (jsonData && jsonData.data.jwtToken) {\r",
+							"       await pm.vault.set(\"token\", jsonData.data.jwtToken);\r",
+							"    }"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d7618e8b-f7b1-444c-b8e7-0b0c238f81d0",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "009cb75b-0776-4f73-9d51-f032cce1b440",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"role\": \"SHOPPER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/users/login"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "77b08fd1-2ca8-44b4-81c9-c1117b011268",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3641df95-6ea8-4993-a163-7b0b35498d9e",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "zoneId",
+			"value": ""
+		},
+		{
+			"key": "random_email",
+			"value": ""
+		}
+	]
+}
