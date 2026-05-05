@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "c5c434d3-e6e1-4000-83a0-09e3f763f534",
+		"name": "Admin Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Returns all the merchant data of specific zone",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a723976-98a8-4a2b-b9fc-17cf7d0d00a3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"addressId\", jsonData.data.addressId);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "91319a17-d8f2-4eab-926d-51f3328d75d5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/merchants?zoneId={{zoneId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"merchants"
+					],
+					"query": [
+						{
+							"key": "zoneId",
+							"value": "{{zoneId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Saves merchant status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e22eaca-7846-47c2-a18f-a52edef6cc4b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"//Verifying Status\r",
+							"pm.test(\"Verifying Status : BLOCKED\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"BLOCKED\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "8d6ccf20-cbe1-4653-808b-735702da7338",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/merchants/{{merchant_id}}/status?status=APPROVED",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"merchants",
+						"{{merchant_id}}",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "APPROVED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Returns  merchant data with respect to status and zone",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa782058-6309-4834-b831-30b1254b2ced",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "4e263449-6d26-4a67-bb50-8920818f57ec",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/merchants/status/zoneId?zoneId=ALPHA",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"merchants",
+						"status",
+						"zoneId"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "BLOCKED",
+							"disabled": true
+						},
+						{
+							"key": "zoneId",
+							"value": "ALPHA"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7d670b63-2b1d-49ff-aa37-fce0c1b78408",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "de062a20-7a06-490b-b8a3-d21917025048",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
