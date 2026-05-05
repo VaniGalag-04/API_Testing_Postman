@@ -1,0 +1,249 @@
+{
+	"info": {
+		"_postman_id": "98de3ee0-0dfc-4684-8ab4-b05be3ef120f",
+		"name": "Shopper Product Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add a review to delivered product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68c98e7a-7991-44a0-a1cd-e7f753595e3d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"reviewId\", pm.response.json().data.reviewId);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "5002773b-428a-4540-a24b-8a700871d4e3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateTime\": \"2025-12-02T19:15:03.496Z\",\r\n  \"description\": \"Product is good\",\r\n  \"heading\": \"good\",\r\n  \"rating\": 4,\r\n  \"shopperId\": {{alternate_user_id}},\r\n  \"shopperName\": \"{{firstname}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/reviews?productId={{productId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"reviews"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{productId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the reviews of a product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "703471fd-5610-4100-95c2-e72b64d0e897",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "b975b16b-cd43-49a2-92a2-1f2c24611c42",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/reviews/{{productId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update an added review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc9bcecb-05b3-4bf1-b27d-2c626bc4d472",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "1c273fa8-4f03-4d5f-af14-71411c59f0df",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateTime\": \"2025-12-02T19:30:12.232Z\",\r\n  \"description\": \"Updated Review Good\",\r\n  \"heading\": \"Updated\",\r\n  \"rating\": 3,\r\n  \"shopperId\": {{alternate_user_id}},\r\n  \"shopperName\": \"{{firstname}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/reviews/{{reviewId}}?productId={{productId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"reviews",
+						"{{reviewId}}"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{productId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an added review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4458439e-d3b6-4f35-851e-c86e1b76b833",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "035eb065-9e80-4d02-8e20-0e01f23ff9c4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/reviews/{{reviewId}}?productId={{productId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"reviews",
+						"{{reviewId}}"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{productId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a09d8048-036d-4339-964d-da55116f229d",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "198d374a-5231-491f-9a13-300570fed52a",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
