@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "891d8fb3-86bd-4595-862e-31c66e8ad9ae",
+		"name": "Shopper Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Display order history",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80ed0114-8a54-40ef-98b2-77ea25c43836",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "def7c946-af0a-4e49-8112-6adc9c373206",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "Place order from cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d54ce9de-3257-45cb-b835-a03ce05dea2a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"pm.environment.set(\"orederId\", pm.response.json().data.orderId);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "6ae2d9df-483d-43d2-a514-1086045c3cdd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"addressId\": {{addressId}},\r\n    \"buildingInfo\": \"Apartment\",\r\n    \"city\": \"{{city_bengaluru}}\",\r\n    \"country\": \"{{country}}\",\r\n    \"landmark\": \"pool\",\r\n    \"name\": \"{{firstname}}\",\r\n    \"phone\": \"{{phone}}\",\r\n    \"pincode\": \"{{pincode}}\",\r\n    \"state\": \"{{state}}\",\r\n    \"streetInfo\": \"MH layout\",\r\n    \"type\": \"HOME\"\r\n  },\r\n  \"paymentMode\": \"COD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "Update order status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5633da0-ec6c-4332-9089-0c0a42b32002",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "07f1857d-93f2-489e-b4be-b3af3324fa30",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/shoppers/{{alternate_user_id}}/orders/{{orderId}}?status=DELIVERED",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"shoppers",
+						"{{alternate_user_id}}",
+						"orders",
+						"{{orderId}}"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "DELIVERED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Invoice copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20164fd4-d99e-4d34-bc34-1db9162bdadf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "8e5b95ac-b812-4af0-a8e3-a1a88bfed0f2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/shoppers/{{alternate_user_id}}/orders/{{orderId}}/invoice"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "62e77e5b-8d70-4635-9270-6de4938020be",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "90fe47a9-6dd4-4fdf-b2ed-4d9383c5e10d",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "orderId",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
