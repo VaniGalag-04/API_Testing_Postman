@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "9e1ec01d-39ba-4cbb-bfec-ce63a06d9195",
+		"name": "Admin Profile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register as Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7a5af72-6484-4362-83fd-9befd9677fec",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message is : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json()\r",
+							"pm.environment.set(\"admin_email\", jsonData.data.email);\r",
+							"pm.environment.set(\"admin_id\", jsonData.data.userId);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "5288d0b8-cbf4-4fbd-8330-22e1e347caf7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "verifyUrl",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"{{city}}\",\r\n  \"country\": \"{{country}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"firstName\": \"Admin\",\r\n  \"lastName\": \"User\",\r\n  \"gender\": \"MALE\",\r\n  \"password\": \"{{admin_passwd}}\",\r\n  \"phone\": \"{{admin_phone}}\",\r\n  \"state\": \"{{state}}\",\r\n  \"street\": \"street\",\r\n  \"zipCode\": \"560001\",\r\n  \"role\": \"ADMIN\",\r\n  \"createdOn\": \"2025-01-01T10:00:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/admin"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin Details by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "117d75f8-a489-4625-9dcc-090bca3df6ee",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "643a348e-6d93-4f1c-a2fc-717992c7a639",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/admin/{{admin_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update admin details by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1fa129f-d0d5-4c57-a753-a33200a196a2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "3a3fe177-ba4b-4810-93fd-1623c1d869de",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"city\": \"{{city_bengaluru}}\",\r\n  \"country\": \"India\",\r\n  \"firstName\": \"adminNew\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"gender\" : \"{{gender_f}}\",\r\n  \"phone\" : \"{{admin_phone}}\",\r\n  \"state\": \"Maharashtra\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/admin/{{admin_id}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "28f2e8b4-bfe7-41e8-8c42-0e83e21154db",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "23bb67a5-9750-43f7-8ce6-d8b1a668cdaa",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
