@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "fb14c57b-cdab-4279-ae75-1eb65241cdb3",
+		"name": "Merchant Product Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all the reviews of a product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c93dffc-29eb-43d1-8f96-05d9723fc7c4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c1520683-55d3-4547-bd9e-a9a73762bb03",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/reviews/{{merchant_prodId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an added review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "62a37339-6e1d-455f-937f-6a4b7626a015",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "37e89632-e254-44e5-a2d7-163a1e7d9857",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/reviews/{{merchant_reviewId}}?productId={{delProd_reviewId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"reviews",
+						"{{merchant_reviewId}}"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{delProd_reviewId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e7a4a468-5fbd-4f1b-859a-00e7886aa58b",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ea9bc6e5-a706-4add-b2c6-e7ed66ec242d",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
