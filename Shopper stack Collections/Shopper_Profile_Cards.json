@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "fafc7215-8436-45ce-82d2-6de44dae0dca",
+		"name": "Shopper Profile Cards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save the card data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "41440179-0fc4-4904-b7ef-8468aa63a9b5",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message is : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"profile_cardId\", jsonData.data.id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "a3bf04c7-8455-4a86-8977-c745dde975d3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cvv\": \"{{credit_card_cvv}}\",\r\n  \"expiryDate\": \"{{credit_card_expDate}}\",\r\n  \"id\": {{credit_card_id}},\r\n  \"nameOnCard\": \"{{firstname}}\",\r\n  \"number\": \"{{credit_card_num}}\",\r\n  \"type\": \"CREDIT\",\r\n  \"userId\": \"{{alternate_user_id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/cards"
+			},
+			"response": []
+		},
+		{
+			"name": "Returns all the shoppers cards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb612b59-151d-4f11-8693-2242d1c8a57f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 900ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "0fd4c97b-f794-4f4e-8733-f9e01c9c78ea",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/shoppers/cards?cardType={{cardType}}&shopperId={{vault:userId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"shoppers",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "cardType",
+							"value": "{{cardType}}"
+						},
+						{
+							"key": "shopperId",
+							"value": "{{vault:userId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get the card data based on type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ba035f0-214d-403d-80da-affa0385f7a7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "ce47363f-f8ac-44e3-944b-5e673e97a60d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/cards/{{alternate_user_id}}?type={{cardType}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"cards",
+						"{{alternate_user_id}}"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{cardType}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Card data based on ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4821690a-626e-4ef9-91c5-b68206d0c056",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 900ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(900);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "1ef25578-69ba-40c2-8a78-1fec07d7a248",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseurl}}/cards/{{profile_cardId}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c3321d50-e798-4dcf-b756-d5ae5be5a1d0",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "183a5627-cd31-4e09-b5c4-5f26c070fa02",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "cardId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "profile_cardId",
+			"value": ""
+		}
+	]
+}
