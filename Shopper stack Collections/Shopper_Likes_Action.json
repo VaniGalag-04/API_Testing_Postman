@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "21d364dd-0ffe-41b2-af0b-ef4b868147c5",
+		"name": "Shopper Likes Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Returns all the likes of shopper",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ed537d4-4f91-4e6d-81db-0d9aeb753412",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "17ac2f77-f6ab-45bd-8e35-8b40a25aa6d1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/shoppers/likes?shopperId={{alternate_user_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"shoppers",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "shopperId",
+							"value": "{{alternate_user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the shoppers like list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c03e7f96-9e87-4e8a-b1ad-7db4c6778461",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "47b2478a-efa4-41f3-9a4c-2819ce842e83",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"additionalProp1\": [\r\n    \"product1\"\r\n  ],\r\n  \"additionalProp2\": [\r\n    \"product2\"\r\n  ],\r\n  \"additionalProp3\": [\r\n    \"produt3\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/shoppers/likes?shopperId={{alternate_user_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"shoppers",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "shopperId",
+							"value": "{{alternate_user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the shoppers like list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd98993e-8902-4243-a575-ea40d956e166",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "68015e03-9eaa-4b8a-bc42-cc36c8d30a7b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/shoppers/likes?category=\"additionalProp1\"&shopperId={{alternate_user_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"shoppers",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "\"additionalProp1\""
+						},
+						{
+							"key": "shopperId",
+							"value": "{{alternate_user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f184b212-fa9b-444e-9430-b2d4eb1cefa2",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "34fec869-d43e-4101-8d66-071f65d7287a",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
