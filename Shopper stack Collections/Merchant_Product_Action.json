@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "fae6b2c3-4a9f-4832-8f0a-8d840cba70b9",
+		"name": "Merchant Product Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Returns all the products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e47da4fb-3d53-4dde-86bf-6ebe6a251690",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"delProd_reviewId\", jsonData.data[0].productId);\r",
+							"pm.environment.set(\"merchant_reviewId\", jsonData.data[0].reviews[0].reviewId);\r",
+							"pm.environment.set(\"productId\", jsonData.data[9].productId);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "4cd9d800-0b66-4207-85de-e93e1787ec7b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/products?zoneId=ALPHA",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "zoneId",
+							"value": "ALPHA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save the product data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6caa46d7-e381-4aca-afdf-bc43d16a1f6f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status message : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"productId_merchant\", jsonData.data.productId);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "467f2113-354e-4fae-a33a-9d59d73a9ca7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"brand\": \"Apple\",\r\n    \"category\": \"Smartphones\",\r\n    \"createdDateTime\": \"2025-12-07T14:11:49.936Z\",\r\n    \"description\": \"The iPhone 15 Pro Max features a titanium body, A17 Pro chip, advanced camera system, and all-day battery life.\",\r\n    \"merchantId\": {{merchant_id}},\r\n    \"name\": \"iPhone 15 Pro Max 256GB\",\r\n    \"offer\": 8,\r\n    \"price\": 149999,\r\n    \"productId\": 5001,\r\n    \"productImageURLs\": [\r\n      \"https://cdn.shoppersstack.com/products/iphone15pm-front.jpg\",\r\n      \"https://cdn.shoppersstack.com/products/iphone15pm-side.jpg\",\r\n      \"https://cdn.shoppersstack.com/products/iphone15pm-back.jpg\"\r\n    ],\r\n    \"quantity\": 1,\r\n    \"rating\": 4.7,\r\n    \"reviews\": [\r\n      {\r\n        \"dateTime\": \"2025-12-02T10:45:20.436Z\",\r\n        \"description\": \"Amazing camera quality and performance. Battery life is excellent.\",\r\n        \"heading\": \"Flagship Experience!\",\r\n        \"rating\": 5,\r\n        \"shopperId\": 90012,\r\n        \"shopperName\": \"Amit Sharma\"\r\n      },\r\n      {\r\n        \"dateTime\": \"2025-12-05T08:22:15.123Z\",\r\n        \"description\": \"Great phone but slightly overpriced.\",\r\n        \"heading\": \"Premium but costly\",\r\n        \"rating\": 4,\r\n        \"shopperId\": 90033,\r\n        \"shopperName\": \"Priya Rao\"\r\n      }\r\n    ],\r\n    \"searchTags\": [\r\n      \"iphone\",\r\n      \"apple\",\r\n      \"smartphone\",\r\n      \"iphone 15 pro max\",\r\n      \"flagship\"\r\n    ],\r\n    \"status\": \"ACTIVE\",\r\n    \"thumbnailURL\": \"https://cdn.shoppersstack.com/products/iphone15pm-thumb.jpg\",\r\n    \"title\": \"Apple iPhone 15 Pro Max (256GB, Blue Titanium)\",\r\n    \"type\": \"Electronics\",\r\n    \"zoneId\": \"Asia/Kolkata\"\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/products?merchantId={{merchant_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "merchantId",
+							"value": "{{merchant_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Saves the Updated Product Data",
+			"id": "f15da978-bea5-46ad-af74-b961f95e1573",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"merchantId\": \"{{merchant_id}}\",\r\n  \"productId\": \"{{merchant_prodId}}\",\r\n  \"action\": \"UPDATE\",\r\n  \"title\": \"Apple iPhone 15 Pro Max - Titanium Blue\",\r\n  \"category\": \"MOBILE_SMARTPHONE\",\r\n  \"type\": \"PHONE\",\r\n  \"name\": \"iPhone\",\r\n  \"description\": \"Apple iPhone 15 Pro Max - Titanium Blue\",\r\n  \"brand\": \"Apple\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/products?productId={{merchant_prodId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "{{merchant_prodId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "returns single product based on id",
+			"id": "687b4b66-0cae-4c02-b564-c770b64c7f8f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/products/{{merchant_prodId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "deletes the product based on id",
+			"id": "5be423b2-f417-445f-95ab-3a10669d8a29",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseurl}}/products/30"
+			},
+			"response": []
+		},
+		{
+			"name": "Returns all the products of specific merchant",
+			"id": "45b80ef8-a339-4c37-9ff6-5fc40049c276",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/products/merchant/{{merchant_id}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "23e3fa0a-174b-4095-9b1d-7a972ef7c725",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "41b8ef20-3aff-421f-a520-64196436b9ec",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "productId_merchant",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
