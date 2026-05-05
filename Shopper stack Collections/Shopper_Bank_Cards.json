@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "ae70dd41-f27d-430a-9e71-7a91b0833200",
+		"name": "Shopper Bank Cards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creates the new card for a given bank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cca9e670-a652-43a2-a532-1e7ca8c997f3",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message is : Created\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"credit_card_num\", pm.response.json().data.number);\r",
+							"pm.environment.set(\"credit_card_cvv\", pm.response.json().data.cvv);\r",
+							"pm.environment.set(\"credit_card_pin\", pm.response.json().data.pin);\r",
+							"pm.environment.set(\"credit_card_expDate\", pm.response.json().data.expiryDate);\r",
+							"pm.environment.set(\"credit_card_Id\", pm.response.json().data.cardId);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "f91f524e-55a0-4ce8-807c-b88b0ce63b9a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/cards?bankName={{bankName}}&cardType=CREDIT&email={{alternate_email}}&name={{firstname}}&shopperId={{alternate_user_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "bankName",
+							"value": "{{bankName}}"
+						},
+						{
+							"key": "cardType",
+							"value": "CREDIT"
+						},
+						{
+							"key": "email",
+							"value": "{{alternate_email}}"
+						},
+						{
+							"key": "name",
+							"value": "{{firstname}}"
+						},
+						{
+							"key": "shopperId",
+							"value": "{{alternate_user_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update card balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da4761e9-3d09-4bf9-b10f-f24a3cc2dccd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c612aeee-375a-4e7f-9bd2-85f05597c5d3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/cards?amount=200000.00&cardNumber={{credit_card_num}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "200000.00"
+						},
+						{
+							"key": "cardNumber",
+							"value": "{{credit_card_num}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validates bank card with amount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd6eaed8-0d84-4cb4-8dff-ecb7ab402439",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "e45bf2a1-8c55-46ff-a255-df7f9fa85841",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"balance\": 100000,\r\n  \"bankName\": \"{{bankName}}\",\r\n  \"cardId\": {{credit_card_id}},\r\n  \"cardType\": \"CREDIT\",\r\n  \"cvv\": {{credit_card_cvv}},\r\n  \"email\": \"{{alternate_email}}\",\r\n  \"expiryDate\": \"{{credit_card_expDate}}\",\r\n  \"nameOnCard\": \"{{firstname}}\",\r\n  \"number\": {{credit_card_num}},\r\n  \"pin\": {{credit_card_pin}},\r\n  \"shopperId\": {{alternate_user_id}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/cards/transaction?amount=2000",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"cards",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "amount",
+							"value": "2000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validates Bank card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57e9eb59-2b5f-4295-b938-7533fc38c22c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "c7a31172-905b-4e9b-ba46-4629088b007b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"balance\": 100000,\r\n    \"bankName\": \"{{bankName}}\",\r\n    \"cardId\": {{credit_card_id}},\r\n    \"cardType\": \"CREDIT\",\r\n    \"cvv\": {{credit_card_cvv}},\r\n    \"email\": \"{{alternate_email}}\",\r\n    \"expiryDate\": \"{{credit_card_expDate}}\",\r\n    \"nameOnCard\": \"{{firstname}}\",\r\n    \"number\": \"{{credit_card_num}}\",\r\n    \"pin\": {{credit_card_pin}},\r\n    \"shopperId\": \"{{alternate_user_id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseurl}}/cards/verify"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e0365b0e-3b15-4cf2-8416-377097705b2d",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "331ba585-2cdc-449d-a651-b34942687540",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "cardType",
+			"value": ""
+		},
+		{
+			"key": "cardId",
+			"value": ""
+		}
+	]
+}
