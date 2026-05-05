@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "1100a3d8-f7a5-4f0a-9e94-1248dff0706a",
+		"name": "Product View Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Negative Test Cases",
+			"item": [
+				{
+					"name": "Returns all the products with no Auth",
+					"id": "200ac3de-42a7-4a8d-9da1-baabcbad98fb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.shoppersstack.com/shopping/products",
+							"protocol": "https",
+							"host": [
+								"www",
+								"shoppersstack",
+								"com"
+							],
+							"path": [
+								"shopping",
+								"products"
+							],
+							"query": [
+								{
+									"key": "zoneId",
+									"value": "454",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Returns default products with invalid URL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "40b8d92a-0737-4b75-85ac-b79dea0453c7",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Status message : Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 6000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(6000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "9a684c4d-df1b-42af-9a3a-fb508162f7e6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/products/alph"
+					},
+					"response": []
+				}
+			],
+			"id": "227a4b0a-26c1-4a9b-9f91-2cf73744d93c",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1091cc9e-0cc1-4f2d-addd-686afa1dd343",
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f56f0ca4-b1de-4ab2-8749-980c9bbe9e35",
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Returns all the products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50b8bfea-4d45-40bc-9676-e2dafc60303d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 6000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(6000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "7bf6c61d-de16-40c9-84ff-9ec2192910b7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.shoppersstack.com/shopping/products?zoneId={{zoneId}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"shoppersstack",
+						"com"
+					],
+					"path": [
+						"shopping",
+						"products"
+					],
+					"query": [
+						{
+							"key": "zoneId",
+							"value": "{{zoneId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Returns default products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a7d4109-275a-4c81-90bb-859433c184b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status message : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 6000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(6000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "0b3b9692-1de6-45bc-ac76-6df304cfe3f3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/products/alpha"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{vault:token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "18d0fa71-d05b-473c-b555-5b80c19a8b40",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d0031d32-d155-4bbf-bee1-1bc08f6a62ce",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
