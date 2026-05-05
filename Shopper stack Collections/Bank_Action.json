@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "9021dd03-1172-4137-81f0-d655404670d1",
+		"name": "Bank Action",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Returns all the available bank names",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abc38fcc-a3f5-4578-b6e5-f12c7180c43a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message is : OK\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "50e3be3f-1f4c-42ea-bde0-d2fe3affbe33",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseurl}}/banks"
+			},
+			"response": []
+		}
+	]
+}
